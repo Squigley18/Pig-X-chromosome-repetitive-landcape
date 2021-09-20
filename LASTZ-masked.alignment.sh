@@ -18,7 +18,6 @@ end1,strand2,start2,end2,identity > $3 #lastz command runs alignment on $1
 #--self performs a self alignment
 #--nomirror prevents mirror image alignments being shown
 #--notrivial prevents output of trivial self alignment block 
-#--hspthresh Sets score threshold for the x-drop extension method; HSPs scoring lower are discarded.
 #--identity sets the percentage identity at which to filter the hits 
 #--format flag with chosen parameters provides a table showing the; start position, stop position and strand for the query sequence;
 # start position, stop position and strand for the target sequence; the percentage identity between the sequences, and the coverage between the sequences 
