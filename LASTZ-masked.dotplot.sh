@@ -17,7 +17,6 @@ lastz $1 --self --nomirror --notrivial --identity=$2 --format=rdotplot > $3.R #l
 #--self performs a self alignment
 #--nomirror prevents mirror image alignments being shown
 #--notrivial prevents output of trivial self alignment block 
-#--hspthresh Sets score threshold for the x-drop extension method; HSPs scoring lower are discarded.
 #--identity sets the percentage identity at which to filter the hits
 #--format=dotplot creates data frame which can be used to create the naieve alignment dotplo
 
