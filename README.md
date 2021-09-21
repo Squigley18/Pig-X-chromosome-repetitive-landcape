@@ -48,6 +48,21 @@ Ideogram.plot function creates an outline of the X chromosome ideogram, and is t
 
 | SCRIPTS | OVERVIEW |
 | :--- | :--- | 
-| `Rfunctions.R` | Functions created for the R scripts in the analysis of the LASTZ data 
-| `Rfunctions.iupac.R` | Functions created for the R scripts in the analysis of the IUPAC data similar to the LASTZ functions 
-| `shell-script-functions.sh` | Functions created for the shell scripts in the analysis of the LASTZ and IUPAC data
+| `split.dna.files.sh` | Scripts to split the pig DNA sequence in two before the IUPAC analysis to reduce computational demand
+| `iupacpal.sh` |  script for IUPAC analysis producing a text based format output file 
+| `iupac.table.sh` | Script to convert text based format to table which can be analysed in R scripts
+| `iupac.table.masked.sh` | Script to convert text based format to table which can be analysed in R scripts
+| `iupac.table.R` | R script to add a header to the table which will be consistent with analysis script
+| `iupac.tables.R` | R script to add a header to the table which will be consistent with analysis script and combine the unmasked DNA tables into one
+| `overlap.hits.entire.chr.iupac.R` | R script to arrange the IUPAC palindromes on a graph to show the number of palindromes found in each region of the chromosome
+| `entire.chromosome.iupac.R` | R script to make overlapping segment graphs between genes and palindrome hits, the distribution of the hits along an ideogram and exporting a table of hit coordinates 
+| `iupac.blast.filtering.sh` |  Script to run the palindrome hits through ncbi BLAST to find similar genes and then extract the specific regions of similarity from the X chromosome FASTA sequence for further analysis
+| `perl.extract.tsv.files.pl` | Perl script to extract DNA sequence from pig X chromosome using Ensembl API using given coordinates
+| `wrapper.iupac.sh` | Combination of the above scripts within one wrapper script to be used in one 'smooth' run
+
+The above scripts were developed to optimise the analysis of the inverted repeat content of the pig X chromosome. The DNA sequence files were analysed with repeatmasking applied and unmasked also. These files are around 130MB in size and lead to high computational demand, therefore they were split in half and run as seperate files. The IUPAC output is returned as a text based format therefore many of the scripts involve reformatting this to allow the data to be analysed further. The detected palindromes are then plot to determine the number of hits in the X chromosome and find any genes which these hits overlap. The complimentary palindromes were also plot to determine their distribution throughout the chromosome. Finally the DNA sequence within these palindromes is extracted to be run through the ncbi BLAST software to determine their nature. 
+
+# LASTZ alignment 
+| SCRIPTS | OVERVIEW |
+| :--- | :--- | 
+| `split.dna.files.sh` | 
