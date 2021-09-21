@@ -23,6 +23,31 @@ The following scripts contain all the functions created for the analysis of the 
 
 | SCRIPT | OVERVIEW |
 | :--- | :--- | 
-| `Rfunctions.R` | 
-| `Rfunctions.iupac.R` |
-| `shell-script-functions.sh` | 
+| `Rfunctions.R` | Functions created for the R scripts in the analysis of the LASTZ data 
+| `Rfunctions.iupac.R` | Functions created for the R scripts in the analysis of the IUPAC data similar to the LASTZ functions 
+| `shell-script-functions.sh` | Functions created for the shell scripts in the analysis of the LASTZ and IUPAC data
+
+Some of the functions include: 
+
+```
+overlap.hits.to.chromosome()
+```
+Overlap.hits.to.chromosome function is used to create the dotplot showing the number of alignment hits sound in regions of the X chromosome 
+
+```
+subset.overlap.segment.plot()
+```
+Subset.overlap.segment.plot function was created to plot the genes of the X chromosome as a segment in red with the alignment hits overlapping the gene in black. The gene then is annotated to highlight regions of inrons, exons and untranslated regions. 
+
+```
+Ideogram.plot()
+``` 
+Ideogram.plot function creates an outline of the X chromosome ideogram, and is then overlapped with vertical segments showing the distribution of the alignment hits. 
+
+# IUPAC analysis
+
+| SCRIPTS | OVERVIEW |
+| :--- | :--- | 
+| `Rfunctions.R` | Functions created for the R scripts in the analysis of the LASTZ data 
+| `Rfunctions.iupac.R` | Functions created for the R scripts in the analysis of the IUPAC data similar to the LASTZ functions 
+| `shell-script-functions.sh` | Functions created for the shell scripts in the analysis of the LASTZ and IUPAC data
