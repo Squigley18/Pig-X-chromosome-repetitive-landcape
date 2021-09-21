@@ -35,7 +35,7 @@ create_folder segments
 create_folder ideograms
 create_folder tables
 
-./entire.chromosome.masked.iupac.R  unmasked.1.iupac.tab masked.2.iupac.tab #Create a graphic representation of the genes the palindromes overlap, where the complimentary palindromes are found and export a table of palindrome start and sttop postitions for extracting the DNA FASTA format
+./entire.chromosome.iupac.R  unmasked.1.iupac.tab masked.2.iupac.tab #Create a graphic representation of the genes the palindromes overlap, where the complimentary palindromes are found and export a table of palindrome start and sttop postitions for extracting the DNA FASTA format
 
 mv *segments.svg segments
 mv *ideogram.png ideograms
