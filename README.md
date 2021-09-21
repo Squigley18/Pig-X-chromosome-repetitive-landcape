@@ -63,6 +63,16 @@ Ideogram.plot function creates an outline of the X chromosome ideogram, and is t
 The above scripts were developed to optimise the analysis of the inverted repeat content of the pig X chromosome. The DNA sequence files were analysed with repeatmasking applied and unmasked also. These files are around 130MB in size and lead to high computational demand, therefore they were split in half and run as seperate files. The IUPAC output is returned as a text based format therefore many of the scripts involve reformatting this to allow the data to be analysed further. The detected palindromes are then plot to determine the number of hits in the X chromosome and find any genes which these hits overlap. The complimentary palindromes were also plot to determine their distribution throughout the chromosome. Finally the DNA sequence within these palindromes is extracted to be run through the ncbi BLAST software to determine their nature. 
 
 # LASTZ alignment 
+
 | SCRIPTS | OVERVIEW |
 | :--- | :--- | 
-| `split.dna.files.sh` | 
+| `LASTZ-unmasked.alignment.sh` | Script for self alignment of pig X chromosome using the unmasked DNA sequence producing an alignment table
+| `LASTZ-masked.alignment.sh` | Script for self alignment of pig X chromosome using the masked DNA sequence producing an alignment table 
+| `LASTZ-unmasked.dotplot.sh` | Script for self alignment of pig X chromosome using the unmasked DNA sequence producing data to create a naieve dot plot
+| `LASTZ-masked.dotplot.sh` | Script for self alignment of pig X chromosome using the masked DNA sequence producing data to create a naieve dot plot
+| `LASTZ-dotplot.R` | R script to produce the naieve dot plot png graph 
+| `naieve.r.dotplot.sh` | wrapper script to produce the naieve dot plots for the masked and unmasked DNA sequences at the different percentage identities 
+
+The above scripts were written to utilise the LASTZ function to perform the LASTZ self alignment of the pig DNA sequence. The alignment performed set the percentage identity of the LASTZ hits to be above 95% and 99% identity. The alignments of the masked and unmasked DNA sequences required different scripts due to the unmasked DNA sequence requiring the extra hspthresh flag to combat the high computational demand of the alignment. The initial alignment files provided a table of coordinates of the LASTZ alignment hits and the dotplot scripts produce a table of hits which can be used to create a naieve dot matrix plot. The alignment table can then be used in further analysis processes. 
+
+
