@@ -75,4 +75,15 @@ The above scripts were developed to optimise the analysis of the inverted repeat
 
 The above scripts were written to utilise the LASTZ function to perform the LASTZ self alignment of the pig DNA sequence. The alignment performed set the percentage identity of the LASTZ hits to be above 95% and 99% identity. The alignments of the masked and unmasked DNA sequences required different scripts due to the unmasked DNA sequence requiring the extra hspthresh flag to combat the high computational demand of the alignment. The initial alignment files provided a table of coordinates of the LASTZ alignment hits and the dotplot scripts produce a table of hits which can be used to create a naieve dot matrix plot. The alignment table can then be used in further analysis processes. 
 
+# LASTZ analysis
+
+| SCRIPTS | OVERVIEW |
+| :--- | :--- | 
+| `overlap.hits.entire.chromosome.R` |  R script to arrange the LASTZ hits on a graph to show the number of hits found in each region of the chromosome
+| `entire.chromosome.R` | R script to make overlapping segment graphs between genes and LASTZ hits, the distribution of the hits along an ideogram and exporting a table of hit coordinates 
+| `perl.extract.tsv.files.pl` | Perl script to extract DNA sequence from pig X chromosome using Ensembl API using given coordinates
+| `analysis.full.filtered.blast.sh` | Full wrapper script to run entire LASTZ analysis from determining the number of overlapping LASTZ hits along the chromosome to the BLAST analysis of DNA sequences within the LASTZ hits and extracting the exact regions where similarities between the BLAST subject sequences and the LASTZ hits are found on the chromosome 
+
+The above scripts allow for the in depth analysis of the LASTZ hits homologous to one another in the pig X chromosome. The disribution of LASTZ hits found to be homologous with the chromosome is shown with the overlapping hits plot to the chromosome. Following this, the genes of the X chromosome were extracted and the LASTZ hits overlapping them were determined. This overlap was then shown as a segment graph with the annotated gene in red and overlapping LASTZ hits in black. The segment graphs highlighted the regions of similarity between the LASTZ hits and the chromosome, showing whether the hits overlapped introns, exons, or untranslated regions. These hits were then plot to their original locations from within the X chromosome to determine their distribution patterns giving insight into their nature. Finally the hit coordinates were exported to a table which then can be passed to a perl script to extract the DNA FASTA sequence from within the coordinates. The FASTA sequences are run through ncbi BLAST to find similar subject sequences. The chromosomal location of these similarities can then be identified for manual BLASTING against subject sequences to determine the nature of these similarities. This data can provide information to the gene containing the similarity, the distribution of the hits suggesting the repetitive nature of the hit, and the contents of the hit itself. 
+
 
