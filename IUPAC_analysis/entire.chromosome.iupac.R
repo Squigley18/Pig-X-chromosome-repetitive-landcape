@@ -75,12 +75,12 @@ all.gene <- rbind(r1.genes,r2.genes,r3.genes,r4.genes,r5.genes,r6.genes)
 #it takes the overlapping palindromes and plots them overlapping the gene (annotated with ggbio) to determine where the overlap occurs and whether the overlap covers an intron or an exon 
 #The graphs are then saved using ggsave
 
-  for(row in unique(all.gene$ensembl_gene_id)){ 
+ for(row in unique(all.gene$ensembl_gene_id)){
     sub <- all.gene[all.gene$ensembl_gene_id == row,c(5,6)]
     start <- sub$start_position
     stop <- sub$end_position
-  sub.plot <- subset.overlap.segment.plot(palindrome,start,stop,paste("palindromes aligned to", row))
-  sub.plot.2 <- subset.overlap.segment.plot(m.palindrome,start,stop,paste("masked palindromes aligned to",row))
+  sub.plot <- subset.overlap.palindrome.plot(palindrome,start,stop,paste("palindromes aligned to", row))
+  sub.plot.2 <- subset.overlap.palindrome.plot(m.palindrome,start,stop,paste("masked palindromes aligned to",row))
   ggsave(paste0(row,".pal_segments.svg"),sub.plot,unit="mm",height=85,width=85)
   ggsave(paste0(row,".m.pal_segments.svg"),sub.plot.2,unit="mm",height=85,width=85)}
 
