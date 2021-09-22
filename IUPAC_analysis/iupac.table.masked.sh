@@ -58,11 +58,11 @@ rm m.start
 rm m.stop
 
 #Combine the seperate start and stop positions into one table with four columns; start1, stop1, start2, stop2
-paste start1 stop1 start2 stop2 > $1.tab
-paste m.start1 m.stop1 m.start2 m.stop2 > $2.tab
+paste start1 stop1 start2 stop2 > masked.tab
+paste m.start1 m.stop1 m.start2 m.stop2 > masked2.tab
 
-awk NF $1.tab #remove trailing white space
-awk NF $2.tab #remove trailing white space
+awk NF masked.tab > $1.tab #remove trailing white space
+awk NF masked2.tab > $2.tab #remove trailing white space
 
 
 rm start1
