@@ -88,6 +88,7 @@ make.windows = function(window.size, chr.size){
 
 window.3000 <- make.windows(3000,126e6)
 
+
 # The following function was created to take the input and return a dot plot with the X chromosome plot on the Xaxis and the number of palindrome hits on the Y axis
 
 # df - the data frame made from the countOverlaps function
@@ -107,6 +108,56 @@ overlap.hits.to.chromosome <- function(df,mytitle){
           title = element_text(color = "grey17", size= 10, angle = 0, hjust = .5, vjust = 0, face = "bold"))
 }
 
+
+
+#Manipulate.data.for.overlap.ideogram.plot creates a dataframe to overlap to the ideogram to show the distribution of palindrome hits 
+#Where there are 0 overlaps detected the values are converted to NAs in the ideogram column and the hits above 1 are converted to the corresponding xaxis row value
+
+#mydf- the dataframe with the palindrome hits 
+
+manipulate.data.for.overlap.ideogram.plot <- function(mydf){
+  hit.gr <- GRfromDF(mydf)
+  window.3000 <- make.windows(3000,126e6)
+  hits <- countOverlaps(window.3000,hit.gr)
+  xaxis <- seq(1:42000)
+  counts <- as.data.frame(cbind(xaxis,hits))
+  counts$ideogram <- counts$hits
+  counts$ideogram[counts$hits >= 1] <- counts$xaxis[counts$hits >= 1]
+  counts$ideogram[counts$ideogram==0] <- NA
+  counts
+}
+
+# The following function was created to take the input and return a ideogram plot with the X chromosome plot on the Xaxis and the palindrome hits plot as vertical segments on the ideograms (masked and unmasked)
+
+# df - the data frame made from the manipulate.data.for.overlap.ideogram.plot
+
+# mytitle - title to be given to the graph
+
+Ideogram.overlap.plot <- function(mydf,mytitle){
+  chromosome.ideogram <- data.frame(x = 1:42000, y = c(rep.int(1,20500),
+                                                       rep.int(NA,800),rep.int(1,20700)),
+                                                     z = c(rep.int(2,20500),
+                                          rep.int(NA,800),rep.int(2,20700)))
+
+  Ideogram <- ggplot(chromosome.ideogram, aes(x,y),na.rm = TRUE)+
+    geom_path(size = 4, lineend = "round",colour="gray87")+
+	geom_path(aes(x,z),size = 4, lineend = "round",colour="gray87")+
+    geom_segment(mydf,aes(x=palindrome,xend=palindrome+15,
+                                   y=1,yend=1),size=3,colour="black")+
+    geom_segment(mydf,aes(x=m.palindrome,xend=m.palindrome+15,
+                                   y=2,yend=2),size=3,colour="black")+
+    scale_x_continuous(name="Location on chromosome (mbp)", label=c(0,30,60,90,120), breaks=c(0,10000,20000,30000,40000))+
+    scale_y_discrete(na.omit(chromosome.ideogram,FALSE))+
+    annotate("text", x = c(1,1.5), y = c(1.5,2.5),
+             label = c("Unmasked", "Repeatmasked") , color="black",
+             size=1.5 , fontface="bold")+
+    theme_classic()+
+    labs(title=mytitle)+
+    theme(axis.title.y = element_blank(),
+          axis.line.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),aspect.ratio = 1/8)
+}
 # Fetch genes on the X chromosome from the given regions.
 
 # starts - an integer vector of start coordinates
@@ -240,16 +291,16 @@ subset.overlaps.for.graphs <- function(mydf,start_position,stop_position){
 
 # mytitle - a character string representing the title of the plot
 
-# subset.overlap.segment.plot returns a track object which can be used to view the ggplot created or save the ggplot using the ggsave function
+# subset.overlap.palindrome.plot returns a track object which can be used to view the ggplot created or save the ggplot using the ggsave function
 
-subset.overlap.segment.plot <- function(mydf,start_position,stop_position,mytitle) {
+subset.overlap.palindrome.plot <- function(mydf,start_position,stop_position,mytitle) {
   gene.gr <- create.gene.gr(start_position,stop_position)
   gene <- create.gene.table(start_position,stop_position)
   subset.data <- subset.overlaps.for.graphs(mydf,start_position,stop_position)
   overlap.plot <<- autoplot(Txdb, which = gene.gr, label.color="grey20") +
     theme_classic()+
     ylab("Palindromes")+
-    geom_segment(data=subset.data,aes(x=start,xend=stop,y=y.column,yend=y.column),color='blue')+
+    geom_point(data=subset.data,aes(x=start,xend=stop,y=y.column,yend=y.column),color="#050310")+
     geom_segment(data=gene,aes(x=start,xend=stop,y=y.col,yend=y.col),color='red')+
     theme(axis.title.x = element_text(color = "grey20", size = 9, angle = 0, hjust = .5, vjust = 0, face = "plain"),
           axis.title.y = element_text(color = "grey20", size = 8, angle = 90, hjust = .5, vjust = .5, face = "plain"),
@@ -274,11 +325,10 @@ subset.overlaps.for.gene.of.interest.position.2 <- function(mydf,start_position,
   overlap.df <-  data.frame(mydf[subjectHits(find.overlaps),], gene.table[queryHits(find.overlaps),])
 }
 
-#Using the subset.overlaps.for.gene.of.interest.position.2 function the subset hits 
-#can be used to create a data frame to overlap to the ideogram to show the distribution of palindrome hits 
+#Manipulate.data.for.ideogram.plot creates a dataframe to overlap to the ideogram to show the distribution of palindrome hits 
 #Where there are 0 overlaps detected the values are converted to NAs in the ideogram column and the hits above 1 are converted to the corresponding xaxis row value
 
-#mydf- the output from subset.overlaps.for.gene.of.interest.position.2
+#mydf- the dataframe with the palindrome hits 
 
 manipulate.data.for.ideogram.plot <- function(mydf){
   hit.gr <- GRfromDF2(mydf)
