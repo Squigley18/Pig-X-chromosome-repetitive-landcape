@@ -61,6 +61,9 @@ rm m.stop
 paste start1 stop1 start2 stop2 > $1.tab
 paste m.start1 m.stop1 m.start2 m.stop2 > $2.tab
 
+awk NF $1.tab #remove trailing white space
+awk NF $2.tab #remove trailing white space
+
 rm start1
 rm start2
 rm stop1
