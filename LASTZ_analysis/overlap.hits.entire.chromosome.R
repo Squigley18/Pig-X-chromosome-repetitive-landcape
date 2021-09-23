@@ -79,4 +79,4 @@ all.ideogram.hits <- as.data.frame(cbind(I99.hits$xaxis,I99.hits$ideogram,Rm99.h
 all.ideogram.hits <- all.ideogram.hits %>% dplyr::rename(Xaxis = V1, ID99 = V2, Rm99 = V3, ID95 = V4, Rm95 = V5)
 #Create and save the ideogram plot 
 all.plot <- Ideogram.overlap.plot(all.ideogram.hits,"all palindrome hits distribution")
-ggsave("all.palindromes.ideogram.svg",all.plot,unit="mm",height=85,width=120)
+ggsave("all.LASTZ.hits.ideogram.svg",all.plot,unit="mm",height=85,width=120)
