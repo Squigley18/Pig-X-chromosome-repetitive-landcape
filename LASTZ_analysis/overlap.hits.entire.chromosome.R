@@ -64,10 +64,10 @@ ID95.count.plot <- overlap.hits.to.chromosome(overlap.ID95.df,"95% identity hits
 IDrm99.count.plot <- overlap.hits.to.chromosome(overlap.IDrm99.df,"repeat-masked 99% identity hits distribution")
 IDrm95.count.plot <- overlap.hits.to.chromosome(overlap.IDrm95.df,"repeat-masked 95% identity hits distribution")
 
-ggsave(paste0(args[1],".overlap.png"),ID99.count.plot,dpi=300,unit="mm",height=85,width=120)
-ggsave(paste0(args[2],".overlap.png"),ID95.count.plot,dpi=300,unit="mm",height=85,width=120)
-ggsave(paste0(args[3],".overlap.png"),IDrm99.count.plot,dpi=300,unit="mm",height=85,width=120)
-ggsave(paste0(args[4],".overlap.png"),IDrm95.count.plot,dpi=300,unit="mm",height=85,width=120)
+ggsave(paste0(args[1],".overlap.svg"),ID99.count.plot,dpi=300,unit="mm",height=85,width=120)
+ggsave(paste0(args[2],".overlap.svg"),ID95.count.plot,dpi=300,unit="mm",height=85,width=120)
+ggsave(paste0(args[3],".overlap.svg"),IDrm99.count.plot,dpi=300,unit="mm",height=85,width=120)
+ggsave(paste0(args[4],".overlap.svg"),IDrm95.count.plot,dpi=300,unit="mm",height=85,width=120)
 
 # manipulate the LASTZ data to calculate the overlapping hits in regions of the chromosome
 I99.hits <- manipulate.data.for.overlap.ideogram.plot(ID99)
@@ -79,4 +79,4 @@ all.ideogram.hits <- as.data.frame(cbind(I99.hits$xaxis,I99.hits$ideogram,Rm99.h
 all.ideogram.hits <- all.ideogram.hits %>% dplyr::rename(Xaxis = V1, ID99 = V2, Rm99 = V3, ID95 = V4, Rm95 = V5)
 #Create and save the ideogram plot 
 all.plot <- Ideogram.overlap.plot(all.ideogram.hits,"all palindrome hits distribution")
-ggsave("all.palindromes.ideogram.png",all.plot,unit="mm",height=85,width=120)
+ggsave("all.palindromes.ideogram.svg",all.plot,unit="mm",height=85,width=120)
