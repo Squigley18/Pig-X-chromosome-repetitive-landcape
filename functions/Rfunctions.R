@@ -146,7 +146,7 @@ Ideogram.overlap.plot <- function(mydf,mytitle){
           axis.line.y = element_blank(),
           axis.text.y = element_blank(),
           axis.ticks.y = element_blank(),aspect.ratio = 1/8)
-
+}
 # The following function was created to take the input and return a dot plot with the X chromosome plot on the Xaxis and the number of LASTZ hits plot on the Y chromosome
 
 # df - the data frame made from the countOverlaps function
