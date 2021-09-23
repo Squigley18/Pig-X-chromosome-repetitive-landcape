@@ -147,7 +147,7 @@ R95 }
   ideogram.hits <- ideogram.hits %>% dplyr::rename(Xaxis = V1, ID99 = V2, ID95 = V3, Rm99 = V4, Rm95 = V5)
   gene.hits <- manipulate.gene.for.ideogram.plot(start,stop)
   plot <- Ideogram.plot(ideogram.hits,gene.hits,paste("lastz hits showing homology to",rows,"original distribition"))
-  ggsave(paste0(rows,"_ideogram.png"),plot,unit="mm",height=85,width=120)
+  ggsave(paste0(rows,"_ideogram.svg"),plot,unit="mm",height=85,width=120)
 }
 
 #The following loop takes the LASTZ hits at 99% identity and 95% identity both masked and unmasked
