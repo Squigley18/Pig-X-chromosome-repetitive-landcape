@@ -128,13 +128,13 @@ Ideogram.overlap.plot <- function(mydf,mytitle){
     geom_path(size = 4, lineend = "round",colour="gray87")+
     geom_path(aes(x,z),size = 4, lineend = "round",colour="gray87")+
     geom_segment(mydf,aes(x=ID95,xend=ID95+15,
-                                   y=1,yend=1),size=3,colour="blue")+
+                                   y=1,yend=1),size=3,colour="#1026EB")+
     geom_segment(mydf,aes(x=ID99,xend=ID99+20,
-                                   y=1,yend=1),size=3,colour="black")+
+                                   y=1,yend=1),size=3,colour="#0A0A0A")+
     geom_segment(mydf,aes(x=Rm95,xend=Rm95+15,
-                                   y=2,yend=2),size=3.5,colour="blue")+
+                                   y=2,yend=2),size=3.5,colour="#1026EB")+
     geom_segment(mydf,aes(x=Rm99,xend=Rm99+20,
-                                   y=2,yend=2),size=3.5,colour="black")+
+                                   y=2,yend=2),size=3.5,colour="#0A0A0A")+
     scale_x_continuous(name="Location on chromosome (mbp)", label=c(0,30,60,90,120), breaks=c(0,10000,20000,30000,40000))+
     scale_y_discrete(na.omit(chromosome.ideogram,FALSE))+
     annotate("text", x = c(1,1.5), y = c(1.5,2.5),
@@ -322,8 +322,8 @@ subset.overlap.segment.plot <- function(mydf,start_position,stop_position,mytitl
   overlap.plot <<- autoplot(Txdb, which = gene.gr, label.color="grey20") +
     theme_classic()+
     ylab("Alignment hits")+
-    geom_segment(data=subset.data,aes(x=start,xend=stop,y=y.column,yend=y.column))+
-    geom_segment(data=gene,aes(x=start,xend=stop,y=y.column,yend=y.column),color='red')+ 
+    geom_segment(data=subset.data,aes(x=start,xend=stop,y=y.column,yend=y.column),color="#0A0A0A")+
+    geom_segment(data=gene,aes(x=start,xend=stop,y=y.column,yend=y.column),color="#FF0E0E")+ 
     theme(axis.title.y = element_text(color = "grey20", size = 8, angle = 90, hjust = .5, vjust = .5, face = "plain"))
   track <<- tracks(overlap.plot, xlab = "Location on chromosome", title = "mytitle")
 }
@@ -397,17 +397,17 @@ Ideogram.plot <- function(mydf,gene,mytitle){
     geom_path(size = 4, lineend = "round",colour="gray87")+
     geom_path(aes(x,z),size = 4, lineend = "round",colour="gray87")+
     geom_segment(mydf,aes(x=ID95,xend=ID95+15,
-                                   y=1,yend=1),size=3,colour="blue")+
+                                   y=1,yend=1),size=3,colour="#1026EB")+
     geom_segment(mydf,aes(x=ID99,xend=ID99+20,
-                                   y=1,yend=1),size=3,colour="black")+
+                                   y=1,yend=1),size=3,colour="#0A0A0A")+
 	geom_segment(gene,aes(x=ideogram,xend=ideogram+45,
-                                   y=1,yend=1),size=3,colour="red")+
+                                   y=1,yend=1),size=3,colour="#FF0E0E")+
     geom_segment(mydf,aes(x=Rm95,xend=Rm95+15,
-                                   y=2,yend=2),size=3.5,colour="blue")+
+                                   y=2,yend=2),size=3.5,colour="#1026EB")+
     geom_segment(mydf,aes(x=Rm99,xend=Rm99+20,
-                                   y=2,yend=2),size=3.5,colour="black")+
+                                   y=2,yend=2),size=3.5,colour="#0A0A0A")+
     geom_segment(gene,aes(x=ideogram,xend=ideogram+45,
-                                   y=2,yend=2),size=3.5,colour="red")+
+                                   y=2,yend=2),size=3.5,colour="#FF0E0E")+
     scale_x_continuous(name="Location on chromosome (mbp)", label=c(0,30,60,90,120), breaks=c(0,10000,20000,30000,40000))+
     scale_y_discrete(na.omit(chromosome.ideogram,FALSE))+
     annotate("text", x = c(1,1.5), y = c(1.5,2.5),
