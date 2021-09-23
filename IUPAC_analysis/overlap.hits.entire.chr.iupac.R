@@ -36,8 +36,8 @@ m.overlap.pal.df <- m.overlap.pal.df %>% dplyr::rename(yaxis = m.overlap.pal)
 pal.count.plot <- overlap.hits.to.chromosome(overlap.pal.df,"palindrome distribution")
 m.pal.count.plot <- overlap.hits.to.chromosome(m.overlap.pal.df,"palindrome distribution")
 
-ggsave(paste0(args[1],".overlap.png"),pal.count.plot,dpi=300,unit="mm",height=85,width=120)
-ggsave(paste0(args[2],".overlap.png"),m.pal.count.plot,dpi=300,unit="mm",height=85,width=120)
+ggsave(paste0(args[1],".overlap.svg"),pal.count.plot,dpi=300,unit="mm",height=85,width=120)
+ggsave(paste0(args[2],".overlap.svg"),m.pal.count.plot,dpi=300,unit="mm",height=85,width=120)
  
 #The following functions create the dataframe which can be passed to the ideogram plot function 
 palindrome.hits <- manipulate.data.for.overlap.ideogram.plot(palindrome)
@@ -47,5 +47,5 @@ palindrome.hits <- manipulate.data.for.overlap.ideogram.plot(palindrome)
   all.ideogram.hits <- all.ideogram.hits %>% dplyr::rename(Xaxis = V1, palindrome = V2, m.palindrome = V3)
 #The ideogram plot can be created 
   all.plot <- Ideogram.overlap.plot(all.ideogram.hits,"all palindrome hits distribution")
-  ggsave("all.palindromes.ideogram.png",all.plot,unit="mm",height=85,width=120) #Saved ideogram plot
+  ggsave("all.palindromes.ideogram.svg",all.plot,unit="mm",height=85,width=120) #Saved ideogram plot
 
