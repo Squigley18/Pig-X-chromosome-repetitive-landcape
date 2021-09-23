@@ -99,7 +99,7 @@ window.3000 <- make.windows(3000,126e6)
 #mydf- dataframe of LASTZ hits 
 # the output of manipulate.data.for.ideogram.overlap.plot function provides the count number where zero hits are replaced with NA to be removed and identified hits replaced with their axis numerical value to be plot at the location on the chromosome
 
-manipulate.data.for.ideogram.plot <- function(mydf){
+manipulate.data.for.overlap.ideogram.plot <- function(mydf){
   hit.gr <- GRfromDF(mydf)
   window.3000 <- make.windows(3000,126e6)
   hits <- countOverlaps(window.3000,hit.gr)
