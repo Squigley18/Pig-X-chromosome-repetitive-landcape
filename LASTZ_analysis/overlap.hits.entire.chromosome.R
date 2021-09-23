@@ -68,3 +68,15 @@ ggsave(paste0(args[1],".overlap.png"),ID99.count.plot,dpi=300,unit="mm",height=8
 ggsave(paste0(args[2],".overlap.png"),ID95.count.plot,dpi=300,unit="mm",height=85,width=120)
 ggsave(paste0(args[3],".overlap.png"),IDrm99.count.plot,dpi=300,unit="mm",height=85,width=120)
 ggsave(paste0(args[4],".overlap.png"),IDrm95.count.plot,dpi=300,unit="mm",height=85,width=120)
+
+# manipulate the LASTZ data to calculate the overlapping hits in regions of the chromosome
+I99.hits <- manipulate.data.for.overlap.ideogram.plot(ID99)
+Rm99.hits <- manipulate.data.for.overlap.ideogram.plot(IDrm99)
+I95.hits <- manipulate.data.for.overlap.ideogram.plot(ID95)
+Rm95.hits <- manipulate.data.for.overlap.ideogram.plot(IDrm95)
+#Combining the hit objects into one dataframe to be passed to the function to create the ideogram plot 
+all.ideogram.hits <- as.data.frame(cbind(I99.hits$xaxis,I99.hits$ideogram,Rm99.hits$ideogram,I95.hits$ideogram,Rm95.hits$ideogram))
+all.ideogram.hits <- all.ideogram.hits %>% dplyr::rename(Xaxis = V1, ID99 = V2, Rm99 = V3, ID95 = V4, Rm95 = V5)
+#Create and save the ideogram plot 
+all.plot <- Ideogram.overlap.plot(all.ideogram.hits,"all palindrome hits distribution")
+ggsave("all.palindromes.ideogram.png",all.plot,unit="mm",height=85,width=120)
