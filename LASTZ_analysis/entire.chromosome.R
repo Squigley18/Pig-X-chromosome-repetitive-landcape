@@ -145,7 +145,8 @@ R95 }
   Rm95.hits <- manipulate.data.for.ideogram.plot(R95)
   ideogram.hits <- as.data.frame(cbind(ID99.hits$xaxis,ID99.hits$ideogram,ID95.hits$ideogram,Rm99.hits$ideogram,Rm95.hits$ideogram))
   ideogram.hits <- ideogram.hits %>% dplyr::rename(Xaxis = V1, ID99 = V2, ID95 = V3, Rm99 = V4, Rm95 = V5)
-  plot <- Ideogram.plot(ideogram.hits,paste("lastz hits showing homology to",rows,"original distribition"))
+  gene.hits <- manipulate.gene.for.ideogram.plot(start,stop)
+  plot <- Ideogram.plot(ideogram.hits,gene.hits,paste("lastz hits showing homology to",rows,"original distribition"))
   ggsave(paste0(rows,"_ideogram.png"),plot,unit="mm",height=85,width=120)
 }
 
