@@ -363,6 +363,22 @@ manipulate.data.for.ideogram.plot <- function(mydf){
   counts
 }
 
+# manipulate.gene.for.ideogram.plot function creates a dataframe with the overlaps between the windows of 3000bp (as chosen due to LASTZ hit average length) and the gene of interest
+#start_position - gene start position
+#stop_position - gene stop position
+# the output of manipulate.gene.for.ideogram.plot function provides the count number where zero hits are replaced with NA to be removed and identified hits replaced with their axis numerical value to be plot at the location on the chromosome
+
+manipulate.gene.for.ideogram.plot <- function(start_position,stop_position){
+ gene.gr <- create.gene.gr(start_position,stop_position)
+  window.3000 <- make.windows(3000,126e6)
+  hits <- countOverlaps(window.3000,gene.gr)
+  xaxis <- seq(1:42000)
+  counts <- as.data.frame(cbind(xaxis,hits))
+  counts$ideogram <- counts$hits
+  counts$ideogram[counts$hits >= 1] <- counts$xaxis[counts$hits >= 1]
+  counts$ideogram[counts$ideogram==0] <- NA
+  counts
+}
 
 # The following function is used to produce an ideogram plot with two ideograms of the pig X chromosome where the repeat masked hits are on the top ideogram and the unmasked hits on the bottom ideogram.
 
@@ -370,7 +386,8 @@ manipulate.data.for.ideogram.plot <- function(mydf){
 
 # mytitle - the title given to the ideogram plot
 
-Ideogram.plot <- function(mydf,mytitle){
+Ideogram.plot <- function(mydf,gene,mytitle){
+
   chromosome.ideogram <- data.frame(x = 1:42000, y = c(rep.int(1,20500),
                                                        rep.int(NA,800),rep.int(1,20700)),
                                     z = c(rep.int(2,20500),
@@ -380,13 +397,17 @@ Ideogram.plot <- function(mydf,mytitle){
     geom_path(size = 4, lineend = "round",colour="gray87")+
     geom_path(aes(x,z),size = 4, lineend = "round",colour="gray87")+
     geom_segment(mydf,aes(x=ID95,xend=ID95+15,
-                                   y=1,yend=1),size=3,colour="red")+
+                                   y=1,yend=1),size=3,colour="blue")+
     geom_segment(mydf,aes(x=ID99,xend=ID99+20,
                                    y=1,yend=1),size=3,colour="black")+
+	geom_segment(gene,aes(x=ideogram,xend=ideogram+45,
+                                   y=1,yend=1),size=3,colour="red")+
     geom_segment(mydf,aes(x=Rm95,xend=Rm95+15,
-                                   y=2,yend=2),size=3.5,colour="red")+
+                                   y=2,yend=2),size=3.5,colour="blue")+
     geom_segment(mydf,aes(x=Rm99,xend=Rm99+20,
                                    y=2,yend=2),size=3.5,colour="black")+
+    geom_segment(gene,aes(x=ideogram,xend=ideogram+45,
+                                   y=2,yend=2),size=3.5,colour="red")+
     scale_x_continuous(name="Location on chromosome (mbp)", label=c(0,30,60,90,120), breaks=c(0,10000,20000,30000,40000))+
     scale_y_discrete(na.omit(chromosome.ideogram,FALSE))+
     annotate("text", x = c(1,1.5), y = c(1.5,2.5),
