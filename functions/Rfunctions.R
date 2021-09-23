@@ -95,6 +95,58 @@ make.windows = function(window.size, chr.size){
 window.3000 <- make.windows(3000,126e6)
 
 
+# manipulate.data.for.ideogram.overlap.plot function creates a dataframe with the overlaps between the windows of 3000bp (as chosen due to LASTZ hit average length) and mydf
+#mydf- dataframe of LASTZ hits 
+# the output of manipulate.data.for.ideogram.overlap.plot function provides the count number where zero hits are replaced with NA to be removed and identified hits replaced with their axis numerical value to be plot at the location on the chromosome
+
+manipulate.data.for.ideogram.plot <- function(mydf){
+  hit.gr <- GRfromDF(mydf)
+  window.3000 <- make.windows(3000,126e6)
+  hits <- countOverlaps(window.3000,hit.gr)
+  xaxis <- seq(1:42000)
+  counts <- as.data.frame(cbind(xaxis,hits))
+  counts$ideogram <- counts$hits
+  counts$ideogram[counts$hits >= 1] <- counts$xaxis[counts$hits >= 1]
+  counts$ideogram[counts$ideogram==0] <- NA
+  counts
+}
+
+
+# The following function is used to produce an ideogram plot with two ideograms of the pig X chromosome where the repeat masked hits are on the top ideogram and the unmasked hits on the bottom ideogram.
+
+# df- is the data frame created using the above function manipulate.data.for.ideogram.plot
+
+# mytitle - the title given to the ideogram plot
+
+Ideogram.overlap.plot <- function(mydf,mytitle){
+  chromosome.ideogram <- data.frame(x = 1:42000, y = c(rep.int(1,20500),
+                                                       rep.int(NA,800),rep.int(1,20700)),
+                                    z = c(rep.int(2,20500),
+                                          rep.int(NA,800),rep.int(2,20700)))
+  
+  Ideogram <- ggplot(chromosome.ideogram, aes(x,y),na.rm = TRUE)+ 
+    geom_path(size = 4, lineend = "round",colour="gray87")+
+    geom_path(aes(x,z),size = 4, lineend = "round",colour="gray87")+
+    geom_segment(mydf,aes(x=ID95,xend=ID95+15,
+                                   y=1,yend=1),size=3,colour="blue")+
+    geom_segment(mydf,aes(x=ID99,xend=ID99+20,
+                                   y=1,yend=1),size=3,colour="black")+
+    geom_segment(mydf,aes(x=Rm95,xend=Rm95+15,
+                                   y=2,yend=2),size=3.5,colour="blue")+
+    geom_segment(mydf,aes(x=Rm99,xend=Rm99+20,
+                                   y=2,yend=2),size=3.5,colour="black")+
+    scale_x_continuous(name="Location on chromosome (mbp)", label=c(0,30,60,90,120), breaks=c(0,10000,20000,30000,40000))+
+    scale_y_discrete(na.omit(chromosome.ideogram,FALSE))+
+    annotate("text", x = c(1,1.5), y = c(1.5,2.5),
+             label = c("Unmasked", "Repeatmasked") , color="black", 
+             size=1.5 , fontface="bold")+
+    theme_classic()+
+    labs(title=mytitle)+
+    theme(axis.title.y = element_blank(),
+          axis.line.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),aspect.ratio = 1/8)
+
 # The following function was created to take the input and return a dot plot with the X chromosome plot on the Xaxis and the number of LASTZ hits plot on the Y chromosome
 
 # df - the data frame made from the countOverlaps function
