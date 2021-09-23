@@ -100,7 +100,7 @@ for(rows in unique(all.gene$ensembl_gene_id)){
   ideogram.hits <- as.data.frame(cbind(pal.hits$xaxis,pal.hits$ideogram,mpal.hits$ideogram))
   ideogram.hits <- ideogram.hits %>% dplyr::rename(Xaxis = V1, palindrome = V2, m.palindrome = V3)
   plot <- Ideogram.plot(ideogram.hits,paste("palindromes within",rows,"distribition"))
-  ggsave(paste0(rows,".pal_ideogram.png"),plot,unit="mm",height=85,width=120)
+  ggsave(paste0(rows,".pal_ideogram.svg"),plot,unit="mm",height=85,width=120)
 }
 
 #The following loop takes the palindrome hits both masked and unmasked for each gene in the all.gene table, 
@@ -132,7 +132,7 @@ for(rows in unique(all.gene$ensembl_gene_id)){
   all.ideogram.hits <- as.data.frame(cbind(palindrome.hits$xaxis,palindrome.hits$ideogram,m.palindrome.hits$ideogram))
   all.ideogram.hits <- all.ideogram.hits %>% dplyr::rename(Xaxis = V1, palindrome = V2, m.palindrome = V3)
   all.plot <- Ideogram.plot(all.ideogram.hits,"all palindrome hits distribution")
-  ggsave("all.palindromes.ideogram.png",all.plot,unit="mm",height=85,width=120)
+  ggsave("all.palindromes.ideogram.svg",all.plot,unit="mm",height=85,width=120)
 
  
     pal.table <- palindrome[,c(1,3,4)]
