@@ -15,7 +15,7 @@ IUPACpal -f $1 -s $2 -m 50 -M 1000 -g 100 -x 0 -o $3.iupac
 #The DNA sequence is then defined using the -f parameter 
 #The sequence header must also be provided to run the IUPACpal software using the -s parameter
 #The minimum length of the palindromes to be detected is defined, in this case 50bp which removes the liklihood of detecting low complexity DNA using the -m parameter
-#The minimum length of the palindromes to be detected is defined, in this case 1000bp allows for encompassing the average length of long palindromes found in other species but also reduced the computational demand using the -M parameter
+#The minimum length of the palindromes to be detected is defined, in this case 1000bp to find any longer palindromes in close proximity with reduced computational demand using the -M parameter
 #The maximum gap length was set as the default value of 100bp using the -g parameter
 #The number of mismatched was set as the default value of 0bp using the -x parameter 
 #Finally the text output is saved to the given output file defined with the -o parameter
