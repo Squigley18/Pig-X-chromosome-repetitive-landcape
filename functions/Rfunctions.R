@@ -94,7 +94,6 @@ make.windows = function(window.size, chr.size){
 
 window.3000 <- make.windows(3000,126e6)
 
-
 # manipulate.data.for.ideogram.overlap.plot function creates a dataframe with the overlaps between the windows of 3000bp (as chosen due to LASTZ hit average length) and mydf
 #mydf- dataframe of LASTZ hits 
 # the output of manipulate.data.for.ideogram.overlap.plot function provides the count number where zero hits are replaced with NA to be removed and identified hits replaced with their axis numerical value to be plot at the location on the chromosome
@@ -112,7 +111,7 @@ manipulate.data.for.overlap.ideogram.plot <- function(mydf){
 }
 
 
-# The following function is used to produce an ideogram plot with two ideograms of the pig X chromosome where the repeat masked hits are on the top ideogram and the unmasked hits on the bottom ideogram.
+# The following function is used to produce an ideogram plot with four ideograms of the pig X chromosome with LASTZ hits separated by their masking and percentage identities 
 
 # df- is the data frame created using the above function manipulate.data.for.ideogram.plot
 
@@ -122,31 +121,38 @@ Ideogram.overlap.plot <- function(mydf,mytitle){
   chromosome.ideogram <- data.frame(x = 1:42000, y = c(rep.int(1,20500),
                                                        rep.int(NA,800),rep.int(1,20700)),
                                     z = c(rep.int(2,20500),
-                                          rep.int(NA,800),rep.int(2,20700)))
+                                          rep.int(NA,800),rep.int(2,20700)),
+										  z.2 = c(rep.int(3,20500),
+                                          rep.int(NA,800),rep.int(3,20700)),
+										  z.3 = c(rep.int(4,20500),
+                                          rep.int(NA,800),rep.int(4,20700)))
   
-  Ideogram <- ggplot(chromosome.ideogram, aes(x,y),na.rm = TRUE)+ 
+    Ideogram <- ggplot(chromosome.ideogram, aes(x,y),na.rm = TRUE)+ 
     geom_path(size = 4, lineend = "round",colour="gray87")+
     geom_path(aes(x,z),size = 4, lineend = "round",colour="gray87")+
+	geom_path(aes(x,z.2),size = 4, lineend = "round",colour="gray87")+
+	geom_path(aes(x,z.3),size = 4, lineend = "round",colour="gray87")+
     geom_segment(mydf,aes(x=ID95,xend=ID95+15,
                                    y=1,yend=1),size=3,colour="#1026EB")+
     geom_segment(mydf,aes(x=ID99,xend=ID99+20,
-                                   y=1,yend=1),size=3,colour="#0A0A0A")+
+                                   y=2,yend=2),size=3,colour="#0A0A0A")+
     geom_segment(mydf,aes(x=Rm95,xend=Rm95+15,
-                                   y=2,yend=2),size=3.5,colour="#1026EB")+
+                                   y=3,yend=3),size=3.5,colour="#1026EB")+
     geom_segment(mydf,aes(x=Rm99,xend=Rm99+20,
-                                   y=2,yend=2),size=3.5,colour="#0A0A0A")+
-    scale_x_continuous(name="Location on chromosome (mbp)", label=c(0,30,60,90,120), breaks=c(0,10000,20000,30000,40000))+
+                                   y=4,yend=4),size=3.5,colour="#0A0A0A")+
+    scale_x_continuous(name="Location on chromosome (Mbp)", label=c(0,30,60,90,120), breaks=c(0,10000,20000,30000,40000))+
     scale_y_discrete(na.omit(chromosome.ideogram,FALSE))+
-    annotate("text", x = c(1,1.5), y = c(1.5,2.5),
-             label = c("Unmasked", "Repeatmasked") , color="black", 
+    annotate("text", x = c(1,1,1.5,1.5), y = c(1.5,2.5,3.5,4.5),
+             label = c("Unmasked", "Unmasked", "Repeatmasked", "Repeatmasked") , color="black", 
              size=1.5 , fontface="bold")+
     theme_classic()+
     labs(title=mytitle)+
     theme(axis.title.y = element_blank(),
           axis.line.y = element_blank(),
           axis.text.y = element_blank(),
-          axis.ticks.y = element_blank(),aspect.ratio = 1/8)
+          axis.ticks.y = element_blank(),aspect.ratio = 2/8)
 }
+
 # The following function was created to take the input and return a dot plot with the X chromosome plot on the Xaxis and the number of LASTZ hits plot on the Y chromosome
 
 # df - the data frame made from the countOverlaps function
