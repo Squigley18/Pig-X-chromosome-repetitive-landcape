@@ -27,6 +27,6 @@ plot <- ggplot(sub, aes(x=reorder(V1,-V2),y=V2)) +
   theme(axis.text.x = element_text(angle = 90,size=5),
         axis.title.x = element_text(size = 10),
 		axis.title.y = element_text(size = 10))
-  ggsave(paste0(args[1],".bar.png"),plot,unit="mm",dpi=300,height=85,width=120)
+  ggsave(paste0(args[1],".bar.svg"),plot,unit="mm",dpi=300,height=85,width=120)
 
 }
