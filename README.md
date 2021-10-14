@@ -14,9 +14,11 @@ Combining these results the regions of self homology in the X chromosome can be 
 | :--- | :--- |
 | `functions` | Folder of functions created to be used within scripts 
 | `IUPAC_analysis` | Folder of scripts used for the analysis of inverted repeats in pig X chromosome 
+| `low.sensitivity.LASTZ` | Folder of scripts used in the fast low sensitivity LASTZ analysis
 | `LASTZ_alignment` | Folder of scripts used for self-alignment of pig X chromosome
 | `LASTZ_analysis` | Folder of scripts used in computational analysis of LASTZ data
-| `BLAST_analysis` | Folder of scripts used in the ncbi BLAST analysis of pig DNA sequences
+| `BLAST_analysis` | Folder of scripts used in the ncbi BLAST analysis of pig DNA 
+
 
 # Functions 
 The following scripts contain all the functions created for the analysis of the IUPAC data and LASTZ data in the self-alignment of the pig X chromosome
@@ -61,6 +63,17 @@ Ideogram.plot function creates an outline of the X chromosome ideogram, and is t
 | `wrapper.iupac.sh` | Combination of the above scripts within one wrapper script to be used in one 'smooth' run
 
 The above scripts were developed to optimise the analysis of the inverted repeat content of the pig X chromosome. The DNA sequence files were analysed with repeatmasking applied and unmasked also. These files are around 130MB in size and lead to high computational demand, therefore they were split in half and run as seperate files. The IUPAC output is returned as a text based format therefore many of the scripts involve reformatting this to allow the data to be analysed further. The detected palindromes are then plot to determine the number of hits in the X chromosome and find any genes which these hits overlap. The complimentary palindromes were also plot to determine their distribution throughout the chromosome. Finally the DNA sequence within these palindromes is extracted to be run through the ncbi BLAST software to determine their nature. 
+
+# Fast low sensitivity LASTZ alignment 
+
+| SCRIPT | OVERVIEW |
+| :--- | :--- | 
+| `LASTZ-unmasked.sh` | Low complexity LASTZ alignment taking 5-10 minutes showing regions of chromosome alignments for unmasked dataset
+| `LASTZ-masked.sh` | Low complexity LASTZ alignment taking 5-10 minutes showing regions of chromosome alignments for masked dataset
+| `LASTZ-dotplot.R` | R script to produce the dot plot png graph 
+| `r.wrapper.sh` |  wrapper script to produce the dot plots for the masked and unmasked DNA sequences 
+
+The above scripts were written to utilise the LASTZ function to perform the LASTZ fast low sensitivity self alignment of the pig DNA sequence. The alignment performed set the percentage identity of the LASTZ hits to be above 99% identity. The alignments of the masked and unmasked DNA sequences required different scripts due to the unmasked DNA sequence requiring the extra hspthresh flag to combat the high computational demand of the alignment. The outcome of these alignments provides a dotplot showing the highest scoring alignment pairs chained together to make a high scoring path which shows regions of potential duplications, inversions, or palindromes which can be investigated further in the LASTZ alignment files. 
 
 # LASTZ alignment 
 
