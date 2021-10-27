@@ -1,6 +1,13 @@
 #Taking the subject start and stop positions from the BLAST results tables they can be input into these functions to create overlap line graphs... 
 #individual functions were created for each subject accession region to allow for annotations to be added corresponding to the NCBI annotations
 
+#!/bin/bash
+
+#$ -cwd
+#$ -q all.q
+#$ -M sq16564@essex.ac.uk
+#$ -m beas
+
 
 overlaps.to.L1 <- function(tab){
 subject <-  read.table(tab, header = FALSE, sep = "",
