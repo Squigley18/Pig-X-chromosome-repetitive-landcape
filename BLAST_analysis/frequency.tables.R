@@ -26,3 +26,5 @@ frequency.table<- as.data.frame(sort(table(query.subject),decreasing=TRUE))
 #write table of unique accession numbers and the number of occurances for creating a frequency bar graph and to allow for focus on the highest frequency results 
 write.table(frequency.table,paste0(args[1],".freq"),sep="\t",row.names=FALSE,quote=FALSE,col.names=FALSE)
 }
+
+#test
